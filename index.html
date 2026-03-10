@@ -235,6 +235,14 @@
       </div>
     </div>
     <p class="card-desc">智能分析 Excel/CSV 数据并自动生成可视化报表。自动识别数据列类型，支持趋势分析、维度对比、同比分析，一键导出 Excel/HTML/PDF，支持飞书/钉钉/企微/邮件推送，内置定时任务和报表模板。</p>
+    <div class="carousel" id="reportbotCarousel">
+      <div class="carousel-inner">
+        <img src="images/reportbot-1.png" alt="ReportBot 截图1" data-index="0">
+      </div>
+      <button class="carousel-btn prev" onclick="carouselNav('reportbotCarousel',-1)">‹</button>
+      <button class="carousel-btn next" onclick="carouselNav('reportbotCarousel',1)">›</button>
+      <div class="carousel-dots" id="reportbotCarousel-dots"></div>
+    </div>
     <div class="card-highlights">
       <span class="highlight"><span class="hi-dot" style="background:#10b981"></span>智能列识别</span>
       <span class="highlight"><span class="hi-dot" style="background:#3b82f6"></span>趋势分析</span>
@@ -271,6 +279,10 @@ var carousels = {
   supplierCarousel: {
     images: ['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],
     current: 0
+  },
+  reportbotCarousel: {
+    images: ['images/reportbot-1.png','images/reportbot-2.png','images/reportbot-3.png','images/reportbot-4.png','images/reportbot-5.png','images/reportbot-6.png','images/reportbot-7.png','images/reportbot-8.png','images/reportbot-9.png','images/reportbot-10.png'],
+    current: 0
   }
 };
 
@@ -304,6 +316,7 @@ function goTo(id, idx) {
 function carouselNav(id, dir) { goTo(id, carousels[id].current + dir); }
 
 initCarousel('supplierCarousel');
+initCarousel('reportbotCarousel');
 </script>
 
 </body>
