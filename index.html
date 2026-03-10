@@ -70,6 +70,18 @@
   .card-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
   .card-scroll .card-preview { flex: 0 0 48%; scroll-snap-align: start; }
 
+  /* Carousel */
+  .carousel { position: relative; margin-bottom: 18px; }
+  .carousel-inner { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; }
+  .carousel-inner img { width: 100%; display: block; cursor: zoom-in; }
+  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid #e2e8f0; color: #475569; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); z-index: 2; }
+  .carousel-btn:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #1e293b; }
+  .carousel-btn.prev { left: 8px; }
+  .carousel-btn.next { right: 8px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+  .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: #cbd5e1; border: none; cursor: pointer; padding: 0; transition: all 0.2s; }
+  .carousel-dot.active { background: #3b82f6; width: 18px; border-radius: 3px; }
+
   .card-previews { display: flex; gap: 10px; margin-bottom: 18px; }
   .card-previews .card-preview { flex: 1; }
 
@@ -150,13 +162,13 @@
       </div>
     </div>
     <p class="card-desc">多平台供应商一键搜索采集工具。支持 1688、淘宝、京东、拼多多、百度爱采购等平台，内置智能去重评分算法，品牌溯源鉴别，结果一键导出 Excel。</p>
-    <div class="card-scroll">
-      <div class="card-preview"><img src="images/supplier-finder-1.png" alt="供应商采集系统截图1" loading="lazy"></div>
-      <div class="card-preview"><img src="images/supplier-finder-2.png" alt="供应商采集系统截图2" loading="lazy"></div>
-      <div class="card-preview"><img src="images/supplier-finder-3.png" alt="供应商采集系统截图3" loading="lazy"></div>
-      <div class="card-preview"><img src="images/supplier-finder-4.png" alt="供应商采集系统截图4" loading="lazy"></div>
-      <div class="card-preview"><img src="images/supplier-finder-5.png" alt="供应商采集系统截图5" loading="lazy"></div>
-      <div class="card-preview"><img src="images/supplier-finder-6.png" alt="供应商采集系统截图6" loading="lazy"></div>
+    <div class="carousel" id="supplierCarousel">
+      <div class="carousel-inner">
+        <img src="images/supplier-finder-1.png" alt="供应商采集系统截图1" data-index="0">
+      </div>
+      <button class="carousel-btn prev" onclick="carouselNav('supplierCarousel',-1)">‹</button>
+      <button class="carousel-btn next" onclick="carouselNav('supplierCarousel',1)">›</button>
+      <div class="carousel-dots" id="supplierCarousel-dots"></div>
     </div>
     <div class="card-highlights">
       <span class="highlight"><span class="hi-dot" style="background:#3b82f6"></span>多平台采集</span>
@@ -253,7 +265,46 @@
 function openLightbox(s){document.getElementById('lightbox-img').src=s;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
-document.querySelectorAll('.card-preview img').forEach(function(i){i.addEventListener('click',function(){openLightbox(this.src);});});
+document.querySelectorAll('.card-preview img, .carousel-inner img').forEach(function(i){i.addEventListener('click',function(){openLightbox(this.src);});});
+
+// Carousel
+var carousels = {
+  supplierCarousel: {
+    images: ['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],
+    current: 0
+  }
+};
+
+function initCarousel(id) {
+  var c = carousels[id];
+  var dotsEl = document.getElementById(id + '-dots');
+  dotsEl.innerHTML = '';
+  for (var i = 0; i < c.images.length; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('data-i', i);
+    dot.onclick = function() { goTo(id, parseInt(this.getAttribute('data-i'))); };
+    dotsEl.appendChild(dot);
+  }
+}
+
+function goTo(id, idx) {
+  var c = carousels[id];
+  c.current = (idx + c.images.length) % c.images.length;
+  var img = document.querySelector('#' + id + ' .carousel-inner img');
+  img.style.opacity = '0';
+  setTimeout(function() {
+    img.src = c.images[c.current];
+    img.style.opacity = '1';
+  }, 150);
+  img.style.transition = 'opacity 0.15s';
+  var dots = document.querySelectorAll('#' + id + '-dots .carousel-dot');
+  dots.forEach(function(d, i) { d.className = 'carousel-dot' + (i === c.current ? ' active' : ''); });
+}
+
+function carouselNav(id, dir) { goTo(id, carousels[id].current + dir); }
+
+initCarousel('supplierCarousel');
 </script>
 
 </body>
