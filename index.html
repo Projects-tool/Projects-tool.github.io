@@ -216,6 +216,34 @@
     color: #333;
   }
 
+  .card-preview {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e8ecf0;
+  }
+
+  .card-preview img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .card-preview img:hover {
+    transform: scale(1.02);
+  }
+
+  .card-previews {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .card-previews .card-preview {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
   /* 页脚 */
   .footer {
     text-align: center;
@@ -337,6 +365,14 @@
     <p class="card-desc">
       原生 WPF 桌面应用，输入一段提示词即可一键优化为结构化的高质量 Prompt。内置 23 个领域角色推断、场景化思维链、智能分段、语气清理、中英文自适应，支持三种优化模式（简洁/详细/专业）、Diff 对比、雷达图评分、历史记录持久化，完全本地运行无需联网。
     </p>
+    <div class="card-previews">
+      <div class="card-preview">
+        <img src="images/prompt-optimizer-1.png" alt="AI 提示词优化系统 - 主界面" loading="lazy">
+      </div>
+      <div class="card-preview">
+        <img src="images/prompt-optimizer-2.png" alt="AI 提示词优化系统 - 优化效果" loading="lazy">
+      </div>
+    </div>
     <div class="card-tags">
       <span class="tag">Prompt 优化</span>
       <span class="tag">23 领域识别</span>
