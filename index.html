@@ -258,6 +258,29 @@
 
   .card-previews .card-preview { flex: 1; }
 
+  .card-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+
+  .card-scroll::-webkit-scrollbar { height: 4px; }
+  .card-scroll::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 2px; }
+  .card-scroll::-webkit-scrollbar-thumb { background: #c0c8d4; border-radius: 2px; }
+
+  .card-scroll .card-preview {
+    flex: 0 0 48%;
+    scroll-snap-align: start;
+  }
+
+  @media (max-width: 540px) {
+    .card-scroll .card-preview { flex: 0 0 80%; }
+  }
+
   /* Lightbox */
   .lightbox {
     display: none;
@@ -335,6 +358,14 @@
     <p class="card-desc">
       多平台供应商一键搜索采集工具。支持 1688、淘宝、京东、拼多多、百度爱采购等平台，智能去重评分，品牌溯源鉴别，结果一键导出 Excel。
     </p>
+    <div class="card-scroll">
+      <div class="card-preview"><img src="images/supplier-finder-1.png" alt="供应商采集系统截图1" loading="lazy"></div>
+      <div class="card-preview"><img src="images/supplier-finder-2.png" alt="供应商采集系统截图2" loading="lazy"></div>
+      <div class="card-preview"><img src="images/supplier-finder-3.png" alt="供应商采集系统截图3" loading="lazy"></div>
+      <div class="card-preview"><img src="images/supplier-finder-4.png" alt="供应商采集系统截图4" loading="lazy"></div>
+      <div class="card-preview"><img src="images/supplier-finder-5.png" alt="供应商采集系统截图5" loading="lazy"></div>
+      <div class="card-preview"><img src="images/supplier-finder-6.png" alt="供应商采集系统截图6" loading="lazy"></div>
+    </div>
     <div class="card-tags">
       <span class="tag">多平台采集</span>
       <span class="tag">智能评分</span>
