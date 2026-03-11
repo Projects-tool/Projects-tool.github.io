@@ -75,25 +75,82 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 <div class="wiki">
   <div class="wiki-header">
     <h1>📖 项目文档</h1>
-    <p>三个项目的功能介绍、技术架构与使用说明</p>
+    <p>四个项目的功能介绍、技术架构与使用说明</p>
   </div>
 
   <div class="toc">
-    <a href="#supplier" class="toc-item">
+    <a href="#openclaw" class="toc-item">
       <div class="toc-num">1</div>
+      <h3>OpenClaw 桌面客户端</h3>
+      <p>AI Agent · 飞书长连接 · Skills 市场</p>
+    </a>
+    <a href="#supplier" class="toc-item">
+      <div class="toc-num">2</div>
       <h3>供应商智能采集系统</h3>
       <p>多平台搜索采集 · 智能评分 · Excel 导出</p>
     </a>
     <a href="#prompt" class="toc-item">
-      <div class="toc-num">2</div>
+      <div class="toc-num">3</div>
       <h3>AI 提示词优化系统</h3>
       <p>Prompt 结构化优化 · 雷达图评分 · Diff 对比</p>
     </a>
     <a href="#reportbot" class="toc-item">
-      <div class="toc-num">3</div>
+      <div class="toc-num">4</div>
       <h3>ReportBot 智能报表</h3>
       <p>数据可视化 · 自动图表 · 多格式导出</p>
     </a>
+  </div>
+  <div class="doc" id="openclaw">
+    <div class="doc-title">
+      <div class="icon" style="background:#fff7ed;color:#f97316;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 014 4v2a4 4 0 01-8 0V6a4 4 0 014-4z"/><path d="M16 14H8a4 4 0 00-4 4v2h16v-2a4 4 0 00-4-4z"/></svg>
+      </div>
+      <h2>OpenClaw 桌面客户端</h2>
+    </div>
+
+    <h3>项目简介</h3>
+    <p>基于 OpenClaw 理念的本地 AI Agent 桌面应用。通过飞书或 QQ 与 AI 对话，远程操控电脑：执行系统命令、读写文件、管理进程、浏览网页。支持多种大语言模型，内置 12 个可安装 Skills，兼容 AgentSkills 规范的自定义 SKILL.md 扩展。飞书采用 WebSocket 长连接，无需公网 IP 或 ngrok。</p>
+
+    <h3>技术栈</h3>
+    <div class="tech-stack">
+      <span class="tech-tag">C#</span>
+      <span class="tech-tag">WPF</span>
+      <span class="tech-tag">.NET 8</span>
+      <span class="tech-tag">Protobuf</span>
+      <span class="tech-tag">WebSocket</span>
+      <span class="tech-tag">OpenAI API</span>
+    </div>
+
+    <h3>核心功能</h3>
+    <ul>
+      <li>AI Agent — 基于 LLM Tool Calling 实现的 Agent Loop，AI 自主判断并调用工具完成复杂任务</li>
+      <li>7 个内置工具 — <code>run_command</code> 执行系统命令、<code>read_file</code> / <code>write_file</code> 读写文件、<code>browse_directory</code> 浏览目录、<code>manage_process</code> 进程管理、<code>system_info</code> 系统信息、<code>web_fetch</code> 网页抓取</li>
+      <li>飞书文件发送 — <code>send_file</code> 工具可通过飞书直接发送文件和图片给用户</li>
+      <li>飞书长连接 — 通过 WebSocket + Protobuf 二进制帧与飞书服务器通信，无需公网 IP，自带心跳保活和断线自动重连</li>
+      <li>飞书双向对话 — 群里 @机器人 发消息，AI 处理后通过 Open API 回复到同一会话，支持消息去重</li>
+      <li>QQ 支持 — 通过 OneBot v11 WebSocket 协议对接 NapCat / go-cqhttp</li>
+      <li>多模型支持 — 预置 GPT-4o、Claude 3.5 Sonnet、DeepSeek Chat、通义千问、GLM-4、Moonshot 等，支持任何 OpenAI 兼容 API</li>
+      <li>Skills 市场 — 12 个内置技能（代码审查、Git 助手、持久记忆、系统运维、安全扫描、数据分析、翻译、文档写作等），一键安装卸载</li>
+      <li>自定义 Skill — 兼容 AgentSkills 规范，在 <code>~/.openclaw/skills/</code> 目录放入 SKILL.md 文件即可扩展</li>
+      <li>现代化 UI — 白色简约主题，SVG 矢量图标，左侧导航栏（对话 / 设置 / Skills），聊天气泡界面</li>
+    </ul>
+
+    <h3>技术架构</h3>
+    <p>基于 WPF + .NET 8 构建，采用 MVVM 架构。LLM 调用层封装了 OpenAI 兼容的 Chat Completions API，支持 function calling / tool use。Agent 核心是一个循环调度器（最多 10 轮迭代），每轮解析 LLM 返回的 tool_calls，执行对应工具，将结果回传继续对话。飞书通信层实现了完整的长连接协议：HTTP POST 获取 WSS endpoint → WebSocket 连接 → Protobuf 帧编解码 → Ping/Pong 心跳 → 事件 ACK → 大消息拆包合并 → 断线重连。Skills 系统支持 YAML frontmatter 解析和文件系统扫描，安装后将 Markdown 指令注入 Agent 的 system prompt。</p>
+
+    <h3>SKILL.md 格式</h3>
+    <p>每个 Skill 是一个文件夹，包含一个 <code>SKILL.md</code> 文件。文件由 YAML frontmatter（元数据）和 Markdown body（AI 指令）组成：</p>
+    <ul>
+      <li><code>name</code> — 技能名称</li>
+      <li><code>description</code> — 功能描述</li>
+      <li><code>category</code> — 分类</li>
+      <li><code>allowed-tools</code> — 允许使用的工具列表</li>
+      <li><code>tags</code> — 标签</li>
+      <li>Markdown body — 包含 When to Use、Instructions、Output Format 等结构化指令</li>
+    </ul>
+
+    <h3>使用方式</h3>
+    <p>运行 <code>OpenClaw.exe</code>，在设置页面配置 LLM API Key 和 Base URL，选择模型。如需飞书对接，填入飞书应用的 App ID 和 App Secret，点击"保存并连接"。在飞书开放平台为应用开启机器人功能、添加 <code>im.message.receive_v1</code> 事件订阅（选择长连接模式），将机器人添加到群聊，@机器人即可对话。</p>
   </div>
   <div class="doc" id="supplier">
     <div class="doc-title">
