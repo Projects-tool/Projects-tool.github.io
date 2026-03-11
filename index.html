@@ -6,7 +6,7 @@
 <title>Project Tools - 作品集</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; min-height: 100vh; background: #f8fafc; color: #334155; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; min-height: 100vh; background: #f8fafc; color: #334155; -webkit-font-smoothing: antialiased; }
 
   .navbar { background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 10; }
   .navbar-inner { max-width: 860px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
@@ -20,24 +20,13 @@
 
   .main { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
 
-  .hero { text-align: center; padding: 40px 0 32px; }
-  .hero-sub { font-size: 14px; color: #64748b; line-height: 1.7; max-width: 520px; margin: 0 auto; }
-
-  /* Stats */
-  .stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; padding: 20px 0; }
-  .stat { text-align: center; }
-  .stat-num { font-size: 24px; font-weight: 700; color: #1e293b; }
-  .stat-label { font-size: 12px; color: #94a3b8; margin-top: 2px; }
-
-  /* Section */
-  .section-title { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-left: 2px; }
-  .section-title .num { width: 22px; height: 22px; border-radius: 6px; background: #3b82f6; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
-  .section-title span { font-size: 13px; font-weight: 600; color: #64748b; letter-spacing: 0.5px; }
+  .hero { text-align: center; padding: 36px 0 28px; }
+  .hero h1 { font-size: 22px; font-weight: 600; color: #1e293b; }
+  .hero h1 .gradient { color: #3b82f6; }
   /* Card */
-  .card { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 20px; border: 1px solid #e2e8f0; transition: all 0.25s; position: relative; overflow: hidden; }
-  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent1); opacity: 0; transition: opacity 0.25s; }
-  .card:hover::before { opacity: 1; }
+  .card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0; transition: box-shadow 0.2s; position: relative; overflow: hidden; }
+  .card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .card::before { display: none; }
 
   .card-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
   .card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -54,9 +43,8 @@
 
   .card-desc { font-size: 14px; color: #475569; line-height: 1.75; margin-bottom: 16px; }
 
-  .card-highlights { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
-  .highlight { font-size: 11px; color: #475569; background: #f8fafc; border: 1px solid #e2e8f0; padding: 4px 10px; border-radius: 6px; display: flex; align-items: center; gap: 4px; }
-  .highlight .hi-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .card-highlights { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .highlight { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 4px; }
 
   .card-scroll { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 6px; margin-bottom: 18px; }
   .card-scroll::-webkit-scrollbar { height: 3px; }
@@ -64,10 +52,10 @@
   .card-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
   .card-scroll .card-preview { flex: 0 0 48%; scroll-snap-align: start; }
 
-  /* Carousel */
-  .carousel { position: relative; margin-bottom: 18px; }
-  .carousel-inner { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; }
+  .carousel { position: relative; margin-bottom: 16px; }
+  .carousel-inner { border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }
   .carousel-inner img { width: 100%; display: block; cursor: zoom-in; }
+  .carousel-counter { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; z-index: 2; }
   .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid #e2e8f0; color: #475569; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); z-index: 2; }
   .carousel-btn:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #1e293b; }
   .carousel-btn.prev { left: 8px; }
@@ -79,17 +67,16 @@
   .card-previews { display: flex; gap: 10px; margin-bottom: 18px; }
   .card-previews .card-preview { flex: 1; }
 
-  .card-preview { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; }
-  .card-preview img { width: 100%; display: block; cursor: zoom-in; transition: transform 0.3s; }
-  .card-preview img:hover { transform: scale(1.02); }
+  .card-preview { border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }
+  .card-preview img { width: 100%; display: block; cursor: zoom-in; }
 
   .card-actions { display: flex; gap: 8px; }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; }
   .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
   .btn-primary { background: #3b82f6; color: #fff; }
-  .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
-  .btn-ghost { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
-  .btn-ghost:hover { background: #f1f5f9; color: #1e293b; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-ghost { background: #fff; color: #64748b; border: 1px solid #e2e8f0; }
+  .btn-ghost:hover { background: #f8fafc; color: #334155; }
   /* Lightbox */
   .lightbox { display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.88); z-index:1000; align-items:center; justify-content:center; cursor:zoom-out; animation:lbIn .2s ease; }
   .lightbox.active { display:flex; }
@@ -133,13 +120,8 @@
   <div class="hero">
     <h1>项目<span class="gradient">作品集</span></h1>
   </div>
-  <div class="stats">
-    <div class="stat"><div class="stat-num">3</div><div class="stat-label">项目作品</div></div>
-    <div class="stat"><div class="stat-num">C#</div><div class="stat-label">主要语言</div></div>
-    <div class="stat"><div class="stat-num">WPF</div><div class="stat-label">桌面框架</div></div>
-  </div>
-  <div class="section-title"><div class="num">1</div><span>供应商采集</span></div>
-  <div class="card" style="--accent1:#3b82f6;--accent2:#06b6d4;">
+
+  <div class="card"> style="--accent1:#3b82f6;--accent2:#06b6d4;">
     <div class="card-header">
       <div class="card-icon" style="background:#eff6ff;color:#3b82f6;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -158,28 +140,28 @@
       <div class="carousel-inner">
         <img src="images/supplier-finder-1.png" alt="供应商采集系统截图1" data-index="0">
       </div>
+      <span class="carousel-counter" id="supplierCarousel-counter">1 / 6</span>
       <button class="carousel-btn prev" onclick="carouselNav('supplierCarousel',-1)">‹</button>
       <button class="carousel-btn next" onclick="carouselNav('supplierCarousel',1)">›</button>
       <div class="carousel-dots" id="supplierCarousel-dots"></div>
     </div>
     <div class="card-highlights">
-      <span class="highlight"><span class="hi-dot" style="background:#3b82f6"></span>多平台采集</span>
-      <span class="highlight"><span class="hi-dot" style="background:#8b5cf6"></span>评分排序</span>
-      <span class="highlight"><span class="hi-dot" style="background:#06b6d4"></span>品牌溯源</span>
-      <span class="highlight"><span class="hi-dot" style="background:#10b981"></span>Excel 导出</span>
-      <span class="highlight"><span class="hi-dot" style="background:#f59e0b"></span>自动去重</span>
+      <span class="highlight">多平台采集</span>
+      <span class="highlight">评分排序</span>
+      <span class="highlight">品牌溯源</span>
+      <span class="highlight">Excel 导出</span>
+      <span class="highlight">自动去重</span>
     </div>
     <div class="card-actions">
       <a href="https://ghfast.top/https://github.com/Projects-tool/supplier-finder-app/releases/download/v1.0.1/supplier-finder-v1.0.1.zip" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 · Windows
       </a>
       <a href="https://github.com/Projects-tool/supplier-finder-app" class="btn btn-ghost" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>源码
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看源码
       </a>
     </div>
   </div>
-  <div class="section-title"><div class="num">2</div><span>提示词工具</span></div>
-  <div class="card" style="--accent1:#8b5cf6;--accent2:#3b82f6;">
+  <div class="card"> style="--accent1:#8b5cf6;--accent2:#3b82f6;">
     <div class="card-header">
       <div class="card-icon" style="background:#faf5ff;color:#8b5cf6;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -199,24 +181,23 @@
       <div class="card-preview"><img src="images/prompt-optimizer-2.png" alt="AI 提示词优化系统 - 优化效果" loading="lazy"></div>
     </div>
     <div class="card-highlights">
-      <span class="highlight"><span class="hi-dot" style="background:#8b5cf6"></span>领域推断</span>
-      <span class="highlight"><span class="hi-dot" style="background:#3b82f6"></span>思维链引导</span>
-      <span class="highlight"><span class="hi-dot" style="background:#06b6d4"></span>中英文适配</span>
-      <span class="highlight"><span class="hi-dot" style="background:#10b981"></span>Diff 对比</span>
-      <span class="highlight"><span class="hi-dot" style="background:#f59e0b"></span>雷达图评分</span>
-      <span class="highlight"><span class="hi-dot" style="background:#ef4444"></span>亮暗主题</span>
+      <span class="highlight">领域推断</span>
+      <span class="highlight">思维链引导</span>
+      <span class="highlight">中英文适配</span>
+      <span class="highlight">Diff 对比</span>
+      <span class="highlight">雷达图评分</span>
+      <span class="highlight">亮暗主题</span>
     </div>
     <div class="card-actions">
       <a href="https://ghfast.top/https://github.com/Projects-tool/prompt-optimizer/releases/download/v3.0/prompt-optimizer-v3.0.zip" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 · Windows
       </a>
       <a href="https://github.com/Projects-tool/prompt-optimizer" class="btn btn-ghost" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>源码
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看源码
       </a>
     </div>
   </div>
-  <div class="section-title"><div class="num">3</div><span>数据可视化</span></div>
-  <div class="card" style="--accent1:#10b981;--accent2:#06b6d4;">
+  <div class="card"> style="--accent1:#10b981;--accent2:#06b6d4;">
     <div class="card-header">
       <div class="card-icon" style="background:#ecfdf5;color:#10b981;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
@@ -234,23 +215,24 @@
       <div class="carousel-inner">
         <img src="images/reportbot-1.png" alt="ReportBot 截图1" data-index="0">
       </div>
+      <span class="carousel-counter" id="reportbotCarousel-counter">1 / 10</span>
       <button class="carousel-btn prev" onclick="carouselNav('reportbotCarousel',-1)">‹</button>
       <button class="carousel-btn next" onclick="carouselNav('reportbotCarousel',1)">›</button>
       <div class="carousel-dots" id="reportbotCarousel-dots"></div>
     </div>
     <div class="card-highlights">
-      <span class="highlight"><span class="hi-dot" style="background:#10b981"></span>列类型识别</span>
-      <span class="highlight"><span class="hi-dot" style="background:#3b82f6"></span>趋势分析</span>
-      <span class="highlight"><span class="hi-dot" style="background:#8b5cf6"></span>多格式导出</span>
-      <span class="highlight"><span class="hi-dot" style="background:#f59e0b"></span>IM 推送</span>
-      <span class="highlight"><span class="hi-dot" style="background:#ef4444"></span>定时任务</span>
+      <span class="highlight">列类型识别</span>
+      <span class="highlight">趋势分析</span>
+      <span class="highlight">多格式导出</span>
+      <span class="highlight">IM 推送</span>
+      <span class="highlight">定时任务</span>
     </div>
     <div class="card-actions">
       <a href="https://ghfast.top/https://github.com/Projects-tool/ReportBot/releases/download/v1.0.0/ReportBot-v1.0.0-Setup.exe" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 · Windows
       </a>
       <a href="https://github.com/Projects-tool/ReportBot" class="btn btn-ghost" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>源码
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看源码
       </a>
     </div>
   </div>
@@ -306,6 +288,8 @@ function goTo(id, idx) {
   img.style.transition = 'opacity 0.15s';
   var dots = document.querySelectorAll('#' + id + '-dots .carousel-dot');
   dots.forEach(function(d, i) { d.className = 'carousel-dot' + (i === c.current ? ' active' : ''); });
+  var counter = document.getElementById(id + '-counter');
+  if (counter) counter.textContent = (c.current + 1) + ' / ' + c.images.length;
 }
 
 function carouselNav(id, dir) { goTo(id, carousels[id].current + dir); }
