@@ -3,300 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Tools - 作品集</title>
+<title>Project Tools</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; min-height: 100vh; background: #f8fafc; color: #334155; -webkit-font-smoothing: antialiased; }
-
-  .navbar { background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 10; }
-  .navbar-inner { max-width: 860px; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-  .nav-left { display: flex; align-items: center; gap: 10px; }
-  .nav-logo { width: 30px; height: 30px; border-radius: 8px; background: #3b82f6; display: flex; align-items: center; justify-content: center; }
-  .nav-logo svg { width: 16px; height: 16px; fill: #fff; }
-  .nav-title { font-size: 15px; font-weight: 600; color: #1e293b; }
-  .nav-links { display: flex; gap: 6px; }
-  .nav-link { font-size: 12px; color: #64748b; text-decoration: none; padding: 5px 10px; border-radius: 6px; transition: all 0.15s; }
-  .nav-link:hover { background: #f1f5f9; color: #334155; }
-
-  .main { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
-
-  .hero { text-align: center; padding: 36px 0 28px; }
-  .hero h1 { font-size: 22px; font-weight: 600; color: #1e293b; }
-  .hero h1 .gradient { color: #3b82f6; }
-  /* Card */
-  .card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e2e8f0; transition: box-shadow 0.2s; position: relative; overflow: hidden; }
-  .card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
-
-
-  .card-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
-  .card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .card-icon svg { width: 22px; height: 22px; }
-  .card-meta { flex: 1; }
-  .card-meta h2 { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
-  .card-meta-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
-  .badge-blue { color: #3b82f6; background: #eff6ff; }
-  .badge-purple { color: #8b5cf6; background: #faf5ff; }
-  .badge-green { color: #10b981; background: #ecfdf5; }
-  .badge-amber { color: #f59e0b; background: #fffbeb; }
-  .card-tech { font-size: 11px; color: #94a3b8; }
-
-  .card-desc { font-size: 14px; color: #475569; line-height: 1.75; margin-bottom: 16px; }
-
-  .card-highlights { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-  .highlight { font-size: 11px; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 4px; }
-
-  .card-scroll { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 6px; margin-bottom: 18px; }
-  .card-scroll::-webkit-scrollbar { height: 3px; }
-  .card-scroll::-webkit-scrollbar-track { background: transparent; }
-  .card-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
-  .card-scroll .card-preview { flex: 0 0 48%; scroll-snap-align: start; }
-
-  .carousel { position: relative; margin-bottom: 16px; }
-  .carousel-inner { border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }
-  .carousel-inner img { width: 100%; display: block; cursor: zoom-in; }
-  .carousel-counter { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px; z-index: 2; }
-  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.9); border: 1px solid #e2e8f0; color: #475569; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); z-index: 2; }
-  .carousel-btn:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #1e293b; }
-  .carousel-btn.prev { left: 8px; }
-  .carousel-btn.next { right: 8px; }
-  .carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
-  .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: #cbd5e1; border: none; cursor: pointer; padding: 0; transition: all 0.2s; }
-  .carousel-dot.active { background: #3b82f6; width: 18px; border-radius: 3px; }
-
-  .card-previews { display: flex; gap: 10px; margin-bottom: 18px; }
-  .card-previews .card-preview { flex: 1; }
-
-  .card-preview { border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }
-  .card-preview img { width: 100%; display: block; cursor: zoom-in; }
-
-  .card-actions { display: flex; gap: 8px; }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; }
-  .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-  .btn-primary { background: #3b82f6; color: #fff; }
-  .btn-primary:hover { background: #2563eb; }
-  .btn-ghost { background: #fff; color: #64748b; border: 1px solid #e2e8f0; }
-  .btn-ghost:hover { background: #f8fafc; color: #334155; }
-  /* Lightbox */
-  .lightbox { display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.88); z-index:1000; align-items:center; justify-content:center; cursor:zoom-out; animation:lbIn .2s ease; }
-  .lightbox.active { display:flex; }
-  .lightbox img { max-width:92vw; max-height:90vh; border-radius:10px; box-shadow:0 8px 40px rgba(0,0,0,0.4); object-fit:contain; }
-  .lightbox-close { position:absolute; top:16px; right:20px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s; }
-  .lightbox-close:hover { background:rgba(255,255,255,0.25); }
-  @keyframes lbIn { from{opacity:0} to{opacity:1} }
-
-  /* Footer */
-  .footer { text-align:center; padding:32px 20px; font-size:12px; color:#94a3b8; border-top:1px solid #e2e8f0; margin-top:20px; }
-  .footer a { color:#3b82f6; text-decoration:none; }
-  .footer-note { font-size:11px; color:#cbd5e1; margin-top:6px; }
-
-  @media (max-width:540px) {
-    .hero h1 { font-size:24px; }
-    .stats { gap:20px; }
-    .stat-num { font-size:22px; }
-    .card { padding:20px; }
-    .card-actions { flex-direction:column; }
-    .btn { justify-content:center; }
-    .card-scroll .card-preview { flex:0 0 80%; }
-  }
+:root { --primary:#4a90d9; --primary-strong:#3b7dd8; --text:#333; --text-soft:#666; --title:#1f2937; --line:#e5e7eb; --bg:#fff; --soft-bg:#f7f8fa; --card-bg:#fff; --shadow:0 8px 24px rgba(0,0,0,.06); --radius:12px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,'PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:var(--primary);text-decoration:none}a:hover{color:var(--primary-strong)}
+.container{width:min(1060px,calc(100% - 48px));margin:0 auto}.main{padding-bottom:80px}
+.site-header{position:sticky;top:0;z-index:20;background:#fffffff5;border-bottom:1px solid rgba(229,231,235,.8)}.site-header.scrolled{box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.nav-shell{display:flex;align-items:center;justify-content:space-between;min-height:56px}
+.brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none}.brand-icon{width:28px;height:28px;border-radius:7px;background:var(--primary);display:flex;align-items:center;justify-content:center}.brand-icon svg{width:14px;height:14px;fill:#fff}.brand strong{font-size:15px;font-weight:600;color:var(--title)}
+.nav-right{display:flex;align-items:center;gap:16px}.nav-right a{color:var(--text-soft);font-size:13px;font-weight:500}.nav-right a:hover{color:var(--primary)}
+.hero-section{padding:48px 0 36px}.eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}.hero-section h1{font-size:28px;font-weight:600;color:var(--title);line-height:1.3;margin-bottom:8px}.hero-section p{font-size:14px;color:var(--text-soft);line-height:1.7;max-width:560px}
+.project-grid{display:grid;gap:24px}
+.project-card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);transition:transform .3s ease,box-shadow .3s ease}.project-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,.09)}
+.card-label{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:10px}
+.card-title{font-size:18px;font-weight:600;color:var(--title);margin-bottom:6px}.card-tech{font-size:12px;color:#999;margin-bottom:12px}.card-desc{font-size:13.5px;color:var(--text-soft);line-height:1.75;margin-bottom:16px}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}.tag{font-size:11px;color:var(--text-soft);background:var(--soft-bg);padding:3px 9px;border-radius:4px}
+.card-previews{display:flex;gap:10px;margin-bottom:16px}.card-previews .preview-frame{flex:1}
+.preview-frame{border-radius:8px;overflow:hidden;border:1px solid var(--line)}.preview-frame img{width:100%;display:block;cursor:zoom-in}
+.carousel{position:relative;margin-bottom:16px}.carousel .preview-frame{border-radius:8px;overflow:hidden;border:1px solid var(--line)}.carousel .preview-frame img{width:100%;display:block;cursor:zoom-in}
+.carousel-counter{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.45);color:#fff;font-size:11px;padding:2px 8px;border-radius:4px;z-index:2}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);border:1px solid var(--line);color:var(--text-soft);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;box-shadow:0 2px 6px rgba(0,0,0,.06);z-index:2}.carousel-btn:hover{background:#fff;box-shadow:0 4px 10px rgba(0,0,0,.1);color:var(--title)}.carousel-btn.prev{left:8px}.carousel-btn.next{right:8px}
+.carousel-dots{display:flex;justify-content:center;gap:5px;margin-top:8px}.carousel-dot{width:6px;height:6px;border-radius:50%;background:#d1d5db;border:none;cursor:pointer;padding:0;transition:all .2s}.carousel-dot.active{background:var(--primary);width:16px;border-radius:3px}
+.card-actions{display:flex;gap:8px}.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:transform .2s,background .15s;cursor:pointer;border:none}.btn svg{width:14px;height:14px;flex-shrink:0}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-strong);transform:translateY(-1px)}.btn-ghost{background:#fff;color:var(--text);border:1px solid var(--line)}.btn-ghost:hover{border-color:#ccc;background:var(--soft-bg)}
+.lightbox{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;cursor:zoom-out}.lightbox.active{display:flex}.lightbox img{max-width:92vw;max-height:90vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.4);object-fit:contain}.lightbox-close{position:absolute;top:14px;right:18px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}.lightbox-close:hover{background:rgba(255,255,255,.2)}
+.site-footer{background:var(--soft-bg);padding:28px 0;text-align:center;font-size:12px;color:#999;border-top:1px solid var(--line)}
+@media(max-width:640px){.hero-section h1{font-size:22px}.project-card{padding:18px}.card-actions{flex-direction:column}.btn{justify-content:center}.card-previews{flex-direction:column}}
 </style>
 </head>
 <body>
-
-<nav class="navbar">
-  <div class="navbar-inner">
-    <div class="nav-left">
-      <div class="nav-logo"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <span class="nav-title">Project Tools</span>
-    </div>
-    <div class="nav-links">
-      <a href="wiki.html" class="nav-link">📖 Wiki</a>
-      <a href="https://github.com/Projects-tool" class="nav-link" target="_blank">GitHub ↗</a>
-    </div>
-  </div>
-</nav>
-
-<div class="main">
-  <div class="hero">
-    <h1>项目<span class="gradient">作品集</span></h1>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <div class="card-icon" style="background:#eff6ff;color:#3b82f6;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+<header class="site-header">
+  <nav class="nav-shell container">
+    <a href="/" class="brand"><div class="brand-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><strong>Project Tools</strong></a>
+    <div class="nav-right"><a href="wiki.html">文档</a><a href="https://github.com/Projects-tool" target="_blank">GitHub</a></div>
+  </nav>
+</header>
+<div class="container main">
+  <section class="hero-section">
+    <div class="eyebrow">作品集</div>
+    <h1>桌面工具开发</h1>
+    <p>使用 C# / WPF 独立开发的几个桌面效率工具，均已发布可下载使用。</p>
+  </section>
+  <div class="project-grid">
+    <article class="project-card">
+      <span class="card-label">数据采集</span>
+      <h3 class="card-title">供应商采集系统</h3>
+      <div class="card-tech">C# · WPF · WebView2 · Edge Chromium · v1.0</div>
+      <p class="card-desc">多平台供应商搜索采集工具，支持 1688、淘宝、京东、拼多多、百度爱采购等平台。内置去重评分算法和品牌溯源，结果导出 Excel。</p>
+      <div class="carousel" id="supplierCarousel">
+        <div class="preview-frame"><img src="images/supplier-finder-1.png" alt="供应商采集系统"></div>
+        <span class="carousel-counter" id="supplierCarousel-counter">1 / 6</span>
+        <button class="carousel-btn prev" onclick="carouselNav('supplierCarousel',-1)">‹</button>
+        <button class="carousel-btn next" onclick="carouselNav('supplierCarousel',1)">›</button>
+        <div class="carousel-dots" id="supplierCarousel-dots"></div>
       </div>
-      <div class="card-meta">
-        <h2>供应商采集系统</h2>
-        <div class="card-meta-row">
-          <span class="badge badge-blue">v1.0</span>
-          <span class="badge badge-green">已发布</span>
-          <span class="card-tech">C# · WPF · WebView2 · Edge Chromium</span>
-        </div>
+      <div class="card-tags"><span class="tag">多平台采集</span><span class="tag">评分排序</span><span class="tag">品牌溯源</span><span class="tag">Excel 导出</span><span class="tag">自动去重</span></div>
+      <div class="card-actions">
+        <a href="https://ghfast.top/https://github.com/Projects-tool/supplier-finder-app/releases/download/v1.0.1/supplier-finder-v1.0.1.zip" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 Windows 版</a>
+        <a href="https://github.com/Projects-tool/supplier-finder-app" class="btn btn-ghost" target="_blank">查看源码 →</a>
       </div>
-    </div>
-    <p class="card-desc">多平台供应商搜索采集工具。支持 1688、淘宝、京东、拼多多、百度爱采购等平台，内置去重评分算法，品牌溯源鉴别，结果导出 Excel。</p>
-    <div class="carousel" id="supplierCarousel">
-      <div class="carousel-inner">
-        <img src="images/supplier-finder-1.png" alt="供应商采集系统截图1" data-index="0">
+    </article>
+    <article class="project-card">
+      <span class="card-label">Prompt 工具</span>
+      <h3 class="card-title">提示词优化工具</h3>
+      <div class="card-tech">C# · WPF · .NET 8 · 规则引擎 · v3.0</div>
+      <p class="card-desc">输入提示词后自动优化为结构化 Prompt。覆盖 23 个领域的角色推断，支持简洁 / 详细 / 专业三种模式、Diff 对比、雷达图评分、历史记录，完全本地运行。</p>
+      <div class="card-previews">
+        <div class="preview-frame"><img src="images/prompt-optimizer-1.png" alt="提示词优化工具 - 主界面" loading="lazy"></div>
+        <div class="preview-frame"><img src="images/prompt-optimizer-2.png" alt="提示词优化工具 - 优化效果" loading="lazy"></div>
       </div>
-      <span class="carousel-counter" id="supplierCarousel-counter">1 / 6</span>
-      <button class="carousel-btn prev" onclick="carouselNav('supplierCarousel',-1)">‹</button>
-      <button class="carousel-btn next" onclick="carouselNav('supplierCarousel',1)">›</button>
-      <div class="carousel-dots" id="supplierCarousel-dots"></div>
-    </div>
-    <div class="card-highlights">
-      <span class="highlight">多平台采集</span>
-      <span class="highlight">评分排序</span>
-      <span class="highlight">品牌溯源</span>
-      <span class="highlight">Excel 导出</span>
-      <span class="highlight">自动去重</span>
-    </div>
-    <div class="card-actions">
-      <a href="https://ghfast.top/https://github.com/Projects-tool/supplier-finder-app/releases/download/v1.0.1/supplier-finder-v1.0.1.zip" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 · Windows
-      </a>
-      <a href="https://github.com/Projects-tool/supplier-finder-app" class="btn btn-ghost" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看源码
-      </a>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header">
-      <div class="card-icon" style="background:#faf5ff;color:#8b5cf6;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <div class="card-tags"><span class="tag">领域推断</span><span class="tag">思维链引导</span><span class="tag">中英文适配</span><span class="tag">Diff 对比</span><span class="tag">雷达图评分</span><span class="tag">亮暗主题</span></div>
+      <div class="card-actions">
+        <a href="https://ghfast.top/https://github.com/Projects-tool/prompt-optimizer/releases/download/v3.0/prompt-optimizer-v3.0.zip" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 Windows 版</a>
+        <a href="https://github.com/Projects-tool/prompt-optimizer" class="btn btn-ghost" target="_blank">查看源码 →</a>
       </div>
-      <div class="card-meta">
-        <h2>提示词优化工具</h2>
-        <div class="card-meta-row">
-          <span class="badge badge-purple">v3.0</span>
-          <span class="badge badge-green">已发布</span>
-          <span class="card-tech">C# · WPF · .NET 8 · 规则引擎</span>
-        </div>
+    </article>
+    <article class="project-card">
+      <span class="card-label">数据可视化</span>
+      <h3 class="card-title">ReportBot 报表工具</h3>
+      <div class="card-tech">C# · WPF · ScottPlot · ClosedXML · v1.0</div>
+      <p class="card-desc">Excel / CSV 数据分析与报表生成工具。自动识别数据列类型，支持趋势分析、维度对比、同比分析，导出 Excel / HTML / PDF，支持飞书 / 钉钉 / 企微推送。</p>
+      <div class="carousel" id="reportbotCarousel">
+        <div class="preview-frame"><img src="images/reportbot-1.png" alt="ReportBot 报表工具"></div>
+        <span class="carousel-counter" id="reportbotCarousel-counter">1 / 10</span>
+        <button class="carousel-btn prev" onclick="carouselNav('reportbotCarousel',-1)">‹</button>
+        <button class="carousel-btn next" onclick="carouselNav('reportbotCarousel',1)">›</button>
+        <div class="carousel-dots" id="reportbotCarousel-dots"></div>
       </div>
-    </div>
-    <p class="card-desc">原生 WPF 桌面应用，输入提示词后自动优化为结构化 Prompt。覆盖 23 个领域的角色推断，支持简洁/详细/专业三种模式、Diff 对比、雷达图评分、历史记录，完全本地运行。</p>
-    <div class="card-previews">
-      <div class="card-preview"><img src="images/prompt-optimizer-1.png" alt="AI 提示词优化系统 - 主界面" loading="lazy"></div>
-      <div class="card-preview"><img src="images/prompt-optimizer-2.png" alt="AI 提示词优化系统 - 优化效果" loading="lazy"></div>
-    </div>
-    <div class="card-highlights">
-      <span class="highlight">领域推断</span>
-      <span class="highlight">思维链引导</span>
-      <span class="highlight">中英文适配</span>
-      <span class="highlight">Diff 对比</span>
-      <span class="highlight">雷达图评分</span>
-      <span class="highlight">亮暗主题</span>
-    </div>
-    <div class="card-actions">
-      <a href="https://ghfast.top/https://github.com/Projects-tool/prompt-optimizer/releases/download/v3.0/prompt-optimizer-v3.0.zip" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 · Windows
-      </a>
-      <a href="https://github.com/Projects-tool/prompt-optimizer" class="btn btn-ghost" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看源码
-      </a>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header">
-      <div class="card-icon" style="background:#ecfdf5;color:#10b981;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
+      <div class="card-tags"><span class="tag">列类型识别</span><span class="tag">趋势分析</span><span class="tag">多格式导出</span><span class="tag">IM 推送</span><span class="tag">定时任务</span></div>
+      <div class="card-actions">
+        <a href="https://ghfast.top/https://github.com/Projects-tool/ReportBot/releases/download/v1.0.0/ReportBot-v1.0.0-Setup.exe" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 Windows 版</a>
+        <a href="https://github.com/Projects-tool/ReportBot" class="btn btn-ghost" target="_blank">查看源码 →</a>
       </div>
-      <div class="card-meta">
-        <h2>ReportBot 报表工具</h2>
-        <div class="card-meta-row">
-          <span class="badge badge-green">v1.0.0</span>
-          <span class="card-tech">C# · WPF · ScottPlot · ClosedXML · 数据分析</span>
-        </div>
-      </div>
-    </div>
-    <p class="card-desc">Excel/CSV 数据分析与报表生成工具。自动识别数据列类型，支持趋势分析、维度对比、同比分析，导出 Excel/HTML/PDF，支持飞书/钉钉/企微推送，内置定时任务和报表模板。</p>
-    <div class="carousel" id="reportbotCarousel">
-      <div class="carousel-inner">
-        <img src="images/reportbot-1.png" alt="ReportBot 截图1" data-index="0">
-      </div>
-      <span class="carousel-counter" id="reportbotCarousel-counter">1 / 10</span>
-      <button class="carousel-btn prev" onclick="carouselNav('reportbotCarousel',-1)">‹</button>
-      <button class="carousel-btn next" onclick="carouselNav('reportbotCarousel',1)">›</button>
-      <div class="carousel-dots" id="reportbotCarousel-dots"></div>
-    </div>
-    <div class="card-highlights">
-      <span class="highlight">列类型识别</span>
-      <span class="highlight">趋势分析</span>
-      <span class="highlight">多格式导出</span>
-      <span class="highlight">IM 推送</span>
-      <span class="highlight">定时任务</span>
-    </div>
-    <div class="card-actions">
-      <a href="https://ghfast.top/https://github.com/Projects-tool/ReportBot/releases/download/v1.0.0/ReportBot-v1.0.0-Setup.exe" class="btn btn-primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下载 · Windows
-      </a>
-      <a href="https://github.com/Projects-tool/ReportBot" class="btn btn-ghost" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>查看源码
-      </a>
-    </div>
+    </article>
   </div>
 </div>
-
-<div class="footer">
-  <p>© 2026 <a href="https://github.com/Projects-tool" target="_blank">Project Tools</a></p>
-</div>
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-  <img id="lightbox-img" src="" alt="预览">
-</div>
+<footer class="site-footer"><div class="container">© 2026 <a href="https://github.com/Projects-tool" target="_blank">Project Tools</a></div></footer>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">✕</button><img id="lightbox-img" src="" alt="预览"></div>
 <script>
 function openLightbox(s){document.getElementById('lightbox-img').src=s;document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
-document.querySelectorAll('.card-preview img, .carousel-inner img').forEach(function(i){i.addEventListener('click',function(){openLightbox(this.src);});});
-
-// Carousel
-var carousels = {
-  supplierCarousel: {
-    images: ['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],
-    current: 0
-  },
-  reportbotCarousel: {
-    images: ['images/reportbot-1.png','images/reportbot-2.png','images/reportbot-3.png','images/reportbot-4.png','images/reportbot-5.png','images/reportbot-6.png','images/reportbot-7.png','images/reportbot-8.png','images/reportbot-9.png','images/reportbot-10.png'],
-    current: 0
-  }
-};
-
-function initCarousel(id) {
-  var c = carousels[id];
-  var dotsEl = document.getElementById(id + '-dots');
-  dotsEl.innerHTML = '';
-  for (var i = 0; i < c.images.length; i++) {
-    var dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('data-i', i);
-    dot.onclick = function() { goTo(id, parseInt(this.getAttribute('data-i'))); };
-    dotsEl.appendChild(dot);
-  }
-}
-
-function goTo(id, idx) {
-  var c = carousels[id];
-  c.current = (idx + c.images.length) % c.images.length;
-  var img = document.querySelector('#' + id + ' .carousel-inner img');
-  img.style.opacity = '0';
-  setTimeout(function() {
-    img.src = c.images[c.current];
-    img.style.opacity = '1';
-  }, 150);
-  img.style.transition = 'opacity 0.15s';
-  var dots = document.querySelectorAll('#' + id + '-dots .carousel-dot');
-  dots.forEach(function(d, i) { d.className = 'carousel-dot' + (i === c.current ? ' active' : ''); });
-  var counter = document.getElementById(id + '-counter');
-  if (counter) counter.textContent = (c.current + 1) + ' / ' + c.images.length;
-}
-
-function carouselNav(id, dir) { goTo(id, carousels[id].current + dir); }
-
-initCarousel('supplierCarousel');
-initCarousel('reportbotCarousel');
+document.querySelectorAll('.preview-frame img').forEach(function(i){i.addEventListener('click',function(){openLightbox(this.src);});});
+var carousels={supplierCarousel:{images:['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],current:0},reportbotCarousel:{images:['images/reportbot-1.png','images/reportbot-2.png','images/reportbot-3.png','images/reportbot-4.png','images/reportbot-5.png','images/reportbot-6.png','images/reportbot-7.png','images/reportbot-8.png','images/reportbot-9.png','images/reportbot-10.png'],current:0}};
+function initCarousel(id){var c=carousels[id],d=document.getElementById(id+'-dots');d.innerHTML='';for(var i=0;i<c.images.length;i++){var b=document.createElement('button');b.className='carousel-dot'+(i===0?' active':'');b.setAttribute('data-i',i);b.onclick=function(){goTo(id,parseInt(this.getAttribute('data-i')));};d.appendChild(b);}}
+function goTo(id,idx){var c=carousels[id];c.current=(idx+c.images.length)%c.images.length;var img=document.querySelector('#'+id+' .preview-frame img');img.style.opacity='0';img.style.transition='opacity .15s';setTimeout(function(){img.src=c.images[c.current];img.style.opacity='1';},150);document.querySelectorAll('#'+id+'-dots .carousel-dot').forEach(function(d,i){d.className='carousel-dot'+(i===c.current?' active':'');});var ct=document.getElementById(id+'-counter');if(ct)ct.textContent=(c.current+1)+' / '+c.images.length;}
+function carouselNav(id,dir){goTo(id,carousels[id].current+dir);}
+initCarousel('supplierCarousel');initCarousel('reportbotCarousel');
+window.addEventListener('scroll',function(){document.querySelector('.site-header').classList.toggle('scrolled',window.scrollY>10);});
 </script>
-
 </body>
 </html>
