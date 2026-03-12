@@ -53,8 +53,8 @@ a{color:var(--primary);text-decoration:none}a:hover{color:var(--primary-strong)}
       <div class="card-tech">C# · WPF · .NET 8 · Protobuf · WebSocket · v1.0</div>
       <p class="card-desc">基于 OpenClaw 理念的本地 AI Agent 桌面应用。通过飞书/QQ 与 AI 对话，远程操控电脑：执行命令、读写文件、管理进程、浏览网页。支持 GPT-4o / Claude / DeepSeek / 通义千问等模型，内置 12 个可安装 Skills（代码审查、系统运维、持久记忆等），兼容 AgentSkills 规范的自定义 SKILL.md 扩展。飞书长连接免公网 IP。</p>
       <div class="carousel" id="openclawCarousel">
-        <div class="preview-frame"><img src="images/openclow1.png" alt="OpenClaw 桌面客户端"></div>
-        <span class="carousel-counter" id="openclawCarousel-counter">1 / 5</span>
+        <div class="preview-frame"><img src="images/openclaw00.png" alt="OpenClaw 桌面客户端"></div>
+        <span class="carousel-counter" id="openclawCarousel-counter">1 / 6</span>
         <button class="carousel-btn prev" onclick="carouselNav('openclawCarousel',-1)">‹</button>
         <button class="carousel-btn next" onclick="carouselNav('openclawCarousel',1)">›</button>
         <div class="carousel-dots" id="openclawCarousel-dots"></div>
@@ -123,7 +123,7 @@ function openLightbox(s){document.getElementById('lightbox-img').src=s;document.
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='';}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
 document.querySelectorAll('.preview-frame img').forEach(function(i){i.addEventListener('click',function(){openLightbox(this.src);});});
-var carousels={openclawCarousel:{images:['images/openclow1.png','images/openclow2.png','images/openclow3.png','images/openclow4.png','images/openclow5.png'],current:0},supplierCarousel:{images:['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],current:0},reportbotCarousel:{images:['images/reportbot-1.png','images/reportbot-2.png','images/reportbot-3.png','images/reportbot-4.png','images/reportbot-5.png','images/reportbot-6.png','images/reportbot-7.png','images/reportbot-8.png','images/reportbot-9.png','images/reportbot-10.png'],current:0}};
+var carousels={openclawCarousel:{images:['images/openclaw00.png','images/openclow1.png','images/openclow2.png','images/openclow3.png','images/openclow4.png','images/openclow5.png'],current:0},supplierCarousel:{images:['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],current:0},reportbotCarousel:{images:['images/reportbot-1.png','images/reportbot-2.png','images/reportbot-3.png','images/reportbot-4.png','images/reportbot-5.png','images/reportbot-6.png','images/reportbot-7.png','images/reportbot-8.png','images/reportbot-9.png','images/reportbot-10.png'],current:0}};
 function initCarousel(id){var c=carousels[id],d=document.getElementById(id+'-dots');d.innerHTML='';for(var i=0;i<c.images.length;i++){var b=document.createElement('button');b.className='carousel-dot'+(i===0?' active':'');b.setAttribute('data-i',i);b.onclick=function(){goTo(id,parseInt(this.getAttribute('data-i')));};d.appendChild(b);}}
 function goTo(id,idx){var c=carousels[id];c.current=(idx+c.images.length)%c.images.length;var img=document.querySelector('#'+id+' .preview-frame img');img.style.opacity='0';img.style.transition='opacity .15s';setTimeout(function(){img.src=c.images[c.current];img.style.opacity='1';},150);document.querySelectorAll('#'+id+'-dots .carousel-dot').forEach(function(d,i){d.className='carousel-dot'+(i===c.current?' active':'');});var ct=document.getElementById(id+'-counter');if(ct)ct.textContent=(c.current+1)+' / '+c.images.length;}
 function carouselNav(id,dir){goTo(id,carousels[id].current+dir);}
