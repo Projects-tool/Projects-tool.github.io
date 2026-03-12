@@ -43,7 +43,7 @@ a{color:var(--primary);text-decoration:none}a:hover{color:var(--primary-strong)}
 .lightbox{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;cursor:zoom-out}.lightbox.active{display:flex}.lightbox img{max-width:88vw;max-height:88vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.4);object-fit:contain;cursor:default}.lightbox-close{position:absolute;top:14px;right:18px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2}.lightbox-close:hover{background:rgba(255,255,255,.2)}.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:background .15s}.lightbox-nav:hover{background:rgba(255,255,255,.25)}.lightbox-prev{left:16px}.lightbox-next{right:16px}
 .site-footer{background:var(--soft-bg);padding:32px 0;text-align:center;font-size:12px;color:#999;border-top:1px solid var(--line)}.footer-stats{display:flex;justify-content:center;gap:24px;margin-bottom:12px;font-size:13px;color:var(--text-soft)}.footer-stats span{display:inline-flex;align-items:center;gap:4px}
 @media(max-width:900px){.project-grid{grid-template-columns:1fr}.project-card.featured{grid-template-columns:1fr}.featured-visual{min-height:240px}}
-@media(max-width:640px){.hero-section h1{font-size:22px}.project-card{padding:18px}.card-actions{flex-direction:column}.btn{justify-content:center}.card-previews{flex-direction:column}}
+@media(max-width:640px){.hero-section{padding-left:20px;padding-right:20px}.hero-section h1{font-size:22px}.project-card{padding:18px}.card-actions{flex-direction:column}.btn{justify-content:center}.card-previews{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -159,22 +159,12 @@ a{color:var(--primary);text-decoration:none}a:hover{color:var(--primary-strong)}
 <footer class="site-footer"><div class="container"><div class="footer-stats"><span>5 个项目</span><span>C# · WPF · .NET 8</span><span>Windows 桌面端</span></div><div>© 2026 <a href="https://github.com/Projects-tool" target="_blank">Project Tools</a></div></div></footer>
 <div class="lightbox" id="lightbox"><button class="lightbox-close" onclick="closeLightbox()">✕</button><button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button><button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button><img id="lightbox-img" src="" alt="预览" onclick="event.stopPropagation()"></div>
 <svg style="display:none"><defs>
-<symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+<symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="7 10 12 15 17 10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="15" x2="12" y2="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
 <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></symbol>
 </defs></svg>
 <script>
 // Lightbox with nav
 var lbImages=[],lbIdx=0;
-function openLightbox(src){
-  var carousel=event.target.closest('.carousel');
-  if(carousel){var id=carousel.id;var c=carousels[id];lbImages=c.images;lbIdx=c.current;}
-  else{lbImages=[src];lbIdx=0;}
-  document.getElementById('lightbox-img').src=lbImages[lbIdx];
-  document.getElementById('lightbox').classList.add('active');
-  document.body.style.overflow='hidden';
-  document.querySelector('.lightbox-prev').style.display=lbImages.length>1?'flex':'none';
-  document.querySelector('.lightbox-next').style.display=lbImages.length>1?'flex':'none';
-}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='';}
 function lightboxNav(dir){
   lbIdx=(lbIdx+dir+lbImages.length)%lbImages.length;
@@ -189,7 +179,16 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowLeft')lightboxNav(-1);
   if(e.key==='ArrowRight')lightboxNav(1);
 });
-document.querySelectorAll('.preview-frame img').forEach(function(i){i.addEventListener('click',function(){openLightbox(this.src);});});
+document.querySelectorAll('.preview-frame img').forEach(function(i){i.addEventListener('click',function(e){
+  var carousel=e.target.closest('.carousel');
+  if(carousel){var id=carousel.id;var c=carousels[id];lbImages=c.images;lbIdx=c.current;}
+  else{lbImages=[this.src];lbIdx=0;}
+  document.getElementById('lightbox-img').src=lbImages[lbIdx];
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow='hidden';
+  document.querySelector('.lightbox-prev').style.display=lbImages.length>1?'flex':'none';
+  document.querySelector('.lightbox-next').style.display=lbImages.length>1?'flex':'none';
+});});
 
 // Carousels
 var carousels={openclawCarousel:{images:['images/openclaw00.png','images/openclow1.png','images/openclow2.png','images/openclow3.png','images/openclow4.png','images/openclow5.png','images/openclaw06.png','images/openclaw07.png','images/openclaw08.png','images/openclaw09.png','images/openclaw10.png'],current:0},trendradarCarousel:{images:['images/trendradar-1.png','images/trendradar-2.png','images/trendradar-3.png'],current:0},supplierCarousel:{images:['images/supplier-finder-1.png','images/supplier-finder-2.png','images/supplier-finder-3.png','images/supplier-finder-4.png','images/supplier-finder-5.png','images/supplier-finder-6.png'],current:0},promptCarousel:{images:['images/prompt-optimizer-1.png','images/prompt-optimizer-2.png'],current:0},reportbotCarousel:{images:['images/reportbot-1.png','images/reportbot-2.png','images/reportbot-3.png','images/reportbot-4.png','images/reportbot-5.png','images/reportbot-6.png','images/reportbot-7.png','images/reportbot-8.png','images/reportbot-9.png','images/reportbot-10.png'],current:0}};
